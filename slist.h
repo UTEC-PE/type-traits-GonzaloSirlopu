@@ -8,7 +8,10 @@ class SListIterator : public Iterator<T> {
     public: 
         SListIterator() : Iterator<T>() {};
         SListIterator(Node<T> *current) : Iterator<T>(current) {};
-        SListIterator<T> operator++();
+        SListIterator<T> operator++(){
+            this -> current = this -> current -> next;
+            retun *this;
+        };
 };
 
 template <typename Tr>
@@ -28,23 +31,43 @@ class SList {
         };
 
         bool find(T search, Node<T> **&pointer) {
-            // TODO
+            if(head == NULL){throw("Lista Vacia");}
+            else{
+                while((*pointer)!=NULL){
+                    if(cmp(search == (*pointer) -> data)){
+                        if(search == (*pointer) -> data){return true;}
+                        else{pointer =&((*pointer) -> next);}
+                    }
+                    else{return false;}
+                }
+                return false;
+            }
+
         }
              
         bool insert(T data) {
-            // TODO
+            if(head == NULL){
+                Node<T>* temporal = new Node<T> (data);
+                temporal -> next = NULL;
+                head = temporal;
+                return true;
+            }
+
         }
              
         bool remove(T item) {
-            // TODO
+            if(head == NULL){throw "Lista Vacia";}
+
         }  
              
         iterator begin() {
-            // TODO
+            return iterator(this -> head);
+
         }
              
         iterator end() {
-            // TODO
+            Node<T>* temporal = head;
+
         }
              
         ~SList() {
